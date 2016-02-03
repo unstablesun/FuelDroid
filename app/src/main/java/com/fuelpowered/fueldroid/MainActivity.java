@@ -87,8 +87,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_QUEST.toString());
         mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_JOIN_EVENT.toString());
 
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                mMessageReceiver,
+                mIntentFilter);
+
         //fuel.useSandbox();
         fuel.setup("55b7b8bf6d75662ce0000000", "b8f70023-729f-e0cb-02dc-49c47f24bae3", true, true, true);
+
+        //Tarek Test data
+        //fuel.setup("5658726350c68b5b240069b8", "a8933de2-3258-2ff0-5041-05bf65a4b54e", true, true, true);
+
         fuel.instance().setLanguageCode("EN");
         fueldynamics.setup();
         fueldynamics.instance().syncUserValues();
@@ -102,6 +111,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         button = (Button) findViewById(R.id.buttonLaunch);
         button.setOnClickListener(this);
+        button = (Button) findViewById(R.id.buttonSync);
+        button.setOnClickListener(this);
+
+
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -124,10 +137,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-        fuelcompeteui.instance().launch();
+        switch (v.getId()) {
+            case R.id.buttonLaunch:
+                fuelcompeteui.instance().launch();
+                break;
+            case R.id.buttonSync:
+                fuelcompete.instance().syncChallengeCounts();
+                break;
 
-
+            default:
+                break;
+        }
     }
+
+
 
     private fuelbroadcastreceiver mMessageReceiver = new fuelbroadcastreceiver() {
 
@@ -173,15 +196,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }, 100);
             } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_COMPETE_EXIT.toString())) {
+
                 Toast.makeText(getApplicationContext(), "Exit", Toast.LENGTH_SHORT).show();
+
             } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_COMPETE_FAIL.toString())) {
                 Toast.makeText(getApplicationContext(), "Fail", Toast.LENGTH_SHORT).show();
             } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_COMPETE_MATCH.toString())) {
                 if (data != null) {
+
+                    java.util.Random rand = new java.util.Random();
+                    long rScore = rand.nextInt(50) + 1;
+
                     // extract the info
                     final String tournamentId = (String) data.get("tournamentID");
                     final String matchId = (String) data.get("matchID");
-                    final long score = 43;
+                    final long score = rScore;
                     // we should play a game here then call the result
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -199,7 +228,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }, 100);
                 }
             } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_COMPETE_CHALLENGE_COUNT.toString())) {
+
                 Toast.makeText(getApplicationContext(), "Challenge Counts", Toast.LENGTH_SHORT).show();
+
             } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_COMPETE_TOURNAMENT_INFO.toString())) {
                 Toast.makeText(getApplicationContext(), "Tournament Info", Toast.LENGTH_SHORT).show();
             } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_EVENTS.toString())) {
