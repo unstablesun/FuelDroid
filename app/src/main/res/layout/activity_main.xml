@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.fuelpowered.fueldroid.MainActivity">
+    tools:context="com.fuelpowered.fueldroid.MainActivity"
+    android:background="#ffffff">
 
     <Button
         android:layout_width="wrap_content"
@@ -20,21 +21,124 @@
         android:theme="@style/Widget.AppCompat.Button"
         android:width="200dp"
         android:visibility="visible"
-        android:layout_marginTop="@dimen/abc_action_bar_default_height_material" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SYNC"
         android:id="@+id/buttonSync"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:height="64dp"
         android:textSize="24sp"
         android:textColor="#27422b"
         android:visibility="visible"
         android:width="200dp"
+        android:theme="@style/Widget.AppCompat.Button"
+        android:layout_below="@+id/buttonLaunch"
+        android:layout_alignLeft="@+id/buttonLaunch"
+        android:layout_alignStart="@+id/buttonLaunch" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textField1"
+        android:layout_below="@+id/buttonSync"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:text="field 1" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textField2"
+        android:layout_below="@+id/textField1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/textField1"
+        android:layout_alignEnd="@+id/textField1"
+        android:text="field2" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textField3"
+        android:layout_below="@+id/textField2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/textField2"
+        android:layout_alignEnd="@+id/textField2"
+        android:text="field3" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textField4"
+        android:layout_below="@+id/textField3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/textField3"
+        android:layout_alignEnd="@+id/textField3"
+        android:text="field4" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textField5"
+        android:layout_below="@+id/textField4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/textField4"
+        android:layout_alignEnd="@+id/textField4"
+        android:text="field5" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textField6"
+        android:layout_below="@+id/textField5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/textField5"
+        android:layout_alignEnd="@+id/textField5"
+        android:text="field6" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textField7"
+        android:layout_below="@+id/textField6"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/textField6"
+        android:layout_alignEnd="@+id/textField6"
+        android:text="field7" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textField8"
+        android:layout_below="@+id/textField7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/textField7"
+        android:layout_alignEnd="@+id/textField7"
+        android:text="field8" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send Prog"
+        android:id="@+id/buttonSendProgress"
+        android:layout_above="@+id/buttonSync"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/buttonLaunch"
+        android:layout_toEndOf="@+id/buttonLaunch"
+        android:layout_alignParentTop="true"
         android:theme="@style/Widget.AppCompat.Button" />
 
 </RelativeLayout>

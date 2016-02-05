@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
 import com.fuelpowered.lib.fuelsdk.fuel;
@@ -43,6 +44,8 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button button;
+
+    int varProgress = 0;
 
     private IntentFilter mIntentFilter;
     static final String SENDER_ID = "870194926634";
@@ -93,7 +96,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mIntentFilter);
 
         //fuel.useSandbox();
-        fuel.setup("55b7b8bf6d75662ce0000000", "b8f70023-729f-e0cb-02dc-49c47f24bae3", true, true, true);
+        //Math Attack
+        fuel.setup("56b3ce2550c68b7d57000ebc", "b0f94600-8c70-ffe5-f4f2-9e0103945ba7", true, true, true);
 
         //Tarek Test data
         //fuel.setup("5658726350c68b5b240069b8", "a8933de2-3258-2ff0-5041-05bf65a4b54e", true, true, true);
@@ -112,6 +116,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button = (Button) findViewById(R.id.buttonLaunch);
         button.setOnClickListener(this);
         button = (Button) findViewById(R.id.buttonSync);
+        button.setOnClickListener(this);
+        button = (Button) findViewById(R.id.buttonSendProgress);
         button.setOnClickListener(this);
 
 
@@ -142,7 +148,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 fuelcompeteui.instance().launch();
                 break;
             case R.id.buttonSync:
-                fuelcompete.instance().syncChallengeCounts();
+                syncEvents();
+                break;
+            case R.id.buttonSendProgress:
+                sendProgress();
                 break;
 
             default:
@@ -150,9 +159,94 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private void sendProgress() {
+
+        varProgress = 1;
+
+        Map<String, Object> ironMap = new HashMap<String, Object>();
+        ironMap.put("value", varProgress);
+        Map<String, Object> progress = new HashMap<String, Object>();
+        progress.put("iron", ironMap);//note: the key is the variable name from the mission rule!
+
+        List<Object> tags = new ArrayList<Object>();
+        tags.add("IronFilter");
+        fuelignite.instance().sendProgress(progress, tags);
+
+    }
 
 
-    private fuelbroadcastreceiver mMessageReceiver = new fuelbroadcastreceiver() {
+    private void syncEvents() {
+        fuelcompete.instance().syncChallengeCounts();
+
+        fuelcompete.instance().syncTournamentInfo();
+
+
+        List<Object> filter = new ArrayList<Object>();
+        filter.add("IronFilter");
+
+        fuelignite.instance().getEvents(filter);
+
+        Toast.makeText(getApplicationContext(), "Sync Events", Toast.LENGTH_SHORT).show();
+
+    }
+
+    private void displayMissionEvents(Map<String, Object> mission) {
+
+        TextView textElement;
+
+        Object _id = "id";
+        String id = (String) mission.get(_id);
+        textElement = (TextView) findViewById(R.id.textField1);
+        textElement.setText("id = " + id);
+
+
+        List<Map<String, Object>> missionRules = (List<Map<String, Object>>) mission.get("rules");
+
+
+        for (Map<String, Object> rule : missionRules) {
+
+            //target
+            String key = "target";
+            String value = (String) rule.get(key);
+            textElement = (TextView) findViewById(R.id.textField2);
+            textElement.setText("target = " + value);
+
+            //id
+            key = "id";
+            value = (String) rule.get(key);
+            textElement = (TextView) findViewById(R.id.textField3);
+            textElement.setText("id = " + value);
+
+            //score
+            key = "score";
+            int ivalue = (int) rule.get(key);
+            textElement = (TextView) findViewById(R.id.textField4);
+            textElement.setText("score = " + ivalue);
+
+            //achieved
+            key = "achieved";
+            boolean bvalue = (boolean) rule.get(key);
+            textElement = (TextView) findViewById(R.id.textField5);
+            textElement.setText("achieved = " + bvalue);
+
+            //variable
+            key = "variable";
+            value = (String) rule.get(key);
+            textElement = (TextView) findViewById(R.id.textField6);
+            textElement.setText("variable = " + value);
+
+            //kind
+            //metadata
+
+            break;//just print the first one
+        }
+
+
+
+    }
+
+
+        private fuelbroadcastreceiver mMessageReceiver = new fuelbroadcastreceiver() {
 
         final Handler handler = new Handler();
 
@@ -234,10 +328,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_COMPETE_TOURNAMENT_INFO.toString())) {
                 Toast.makeText(getApplicationContext(), "Tournament Info", Toast.LENGTH_SHORT).show();
             } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_EVENTS.toString())) {
-                Toast.makeText(getApplicationContext(), "Events", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Broadcast Events", Toast.LENGTH_SHORT).show();
                 // iterate the list and gather the events.
                 List<Map<String, Object>> events = (List<Map<String, Object>>) data.get("events");
-                Log.d("events", events.toString());
+                Log.i("events", events.toString());
                 for (Map<String, Object> event : events) {
                     String activityID = (String) event.get("id");
                     switch ((int) event.get("type")) {
@@ -246,6 +340,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             break;
                         case 1:
                             fuelignite.instance().getMission(activityID);
+                            Toast.makeText(getApplicationContext(), "getMission", Toast.LENGTH_SHORT).show();
                             break;
                         case 2:
                             fuelignite.instance().getQuest(activityID);
@@ -254,18 +349,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_LEADERBOARD.toString())) {
                 Map<String, Object> leaderBoard = (Map<String, Object>) data.get("leaderBoard");
-                Log.d("leaderBoard", leaderBoard.toString());
+                Log.i("leaderBoard", leaderBoard.toString());
                 Toast.makeText(getApplicationContext(), "LeaderBoard", Toast.LENGTH_SHORT).show();
+
             } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_MISSION.toString())) {
                 Map<String, Object> mission = (Map<String, Object>) data.get("mission");
-                Log.d("mission", mission.toString());
-                Toast.makeText(getApplicationContext(), "Mission", Toast.LENGTH_SHORT).show();
+                Log.i("broadcast mission", mission.toString());
+                //Toast.makeText(getApplicationContext(), mission.toString(), Toast.LENGTH_LONG).show();
+
+                displayMissionEvents(mission);
+
             } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_QUEST.toString())) {
                 Map<String, Object> quest = (Map<String, Object>) data.get("quest");
-                Log.d("quest", quest.toString());
+                Log.i("quest", quest.toString());
                 Toast.makeText(getApplicationContext(), "Quest", Toast.LENGTH_SHORT).show();
+
             } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_JOIN_EVENT.toString())) {
-                Log.d("join event", data.toString());
+                Log.i("join event", data.toString());
             }
 
         }
