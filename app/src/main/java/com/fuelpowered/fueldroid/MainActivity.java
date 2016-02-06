@@ -194,10 +194,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         TextView textElement;
 
-        Object _id = "id";
-        String id = (String) mission.get(_id);
+        Object _key = "id";
+        String id = (String) mission.get(_key);
+
+        Map<String, Object> metaData = (Map<String, Object>) mission.get("metadata");
+        _key = "name";
+        String missionName = (String) metaData.get(_key);
         textElement = (TextView) findViewById(R.id.textField1);
-        textElement.setText("id = " + id);
+        textElement.setText("name = " + missionName + " : id = " + id);
 
 
         List<Map<String, Object>> missionRules = (List<Map<String, Object>>) mission.get("rules");
@@ -240,13 +244,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             break;//just print the first one
         }
-
-
-
     }
 
 
-        private fuelbroadcastreceiver mMessageReceiver = new fuelbroadcastreceiver() {
+    private fuelbroadcastreceiver mMessageReceiver = new fuelbroadcastreceiver() {
 
         final Handler handler = new Handler();
 
