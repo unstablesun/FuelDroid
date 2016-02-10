@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Button button;
 
-    int varProgress = 0;
+    int ironCount = 0;
+    int steelCount = 0;
 
     private IntentFilter mIntentFilter;
     static final String SENDER_ID = "870194926634";
@@ -161,15 +162,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void sendProgress() {
 
-        varProgress = 1;
+        ironCount = 1;
 
         Map<String, Object> ironMap = new HashMap<String, Object>();
-        ironMap.put("value", varProgress);
+        ironMap.put("value", ironCount);
+
+        Map<String, Object> steelMap = new HashMap<String, Object>();
+        steelMap.put("value", ironCount);
+
         Map<String, Object> progress = new HashMap<String, Object>();
         progress.put("iron", ironMap);//note: the key is the variable name from the mission rule!
+        progress.put("steel", steelMap);//note: the key is the variable name from the mission rule!
 
         List<Object> tags = new ArrayList<Object>();
         tags.add("IronFilter");
+        tags.add("SteelFilter");
+
         fuelignite.instance().sendProgress(progress, tags);
 
     }
@@ -183,6 +191,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         List<Object> filter = new ArrayList<Object>();
         filter.add("IronFilter");
+        filter.add("SteelFilter");
 
         fuelignite.instance().getEvents(filter);
 
@@ -242,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //kind
             //metadata
 
-            break;//just print the first one
+            //break;//just print the first one
         }
     }
 
