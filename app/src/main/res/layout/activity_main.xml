@@ -108,28 +108,6 @@
         android:layout_alignEnd="@+id/textField5"
         android:text="field6" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textField7"
-        android:layout_below="@+id/textField6"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/textField6"
-        android:layout_alignEnd="@+id/textField6"
-        android:text="field7" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textField8"
-        android:layout_below="@+id/textField7"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/textField7"
-        android:layout_alignEnd="@+id/textField7"
-        android:text="field8" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -143,5 +121,18 @@
         android:layout_alignParentTop="true"
         android:theme="@style/Widget.AppCompat.Button"
         android:background="#b2b4f9" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Popup 1"
+        android:id="@+id/buttonPopup1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/buttonSync"
+        android:layout_alignEnd="@+id/buttonSync"
+        android:theme="@style/Widget.AppCompat.Button"
+        android:background="#d373df" />
 
 </RelativeLayout>

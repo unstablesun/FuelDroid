@@ -52,6 +52,12 @@
             android:hardwareAccelerated="true"
             android:screenOrientation="landscape" />
 
+        <activity android:name=".pop"
+
+            android:theme="@style/AppTheme.customTheme"
+
+            ></activity>
+
         <activity
             android:name="com.fuelpowered.lib.propeller.PropellerSDKNotificationActivity" />
         <receiver
