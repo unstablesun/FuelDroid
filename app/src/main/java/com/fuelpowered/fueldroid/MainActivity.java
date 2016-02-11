@@ -175,7 +175,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void launchPopup1() {
 
-        startActivity(new Intent(MainActivity.this, pop.class));
+        //pass in bundle
+        Intent intentBundle = new Intent(MainActivity.this, pop.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("title", "Mission Rule");
+        bundle.putInt("amount", 1000);
+
+        intentBundle.putExtras(bundle);
+
+        startActivity(intentBundle);
     }
 
     private void sendProgress() {
@@ -401,43 +410,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     };
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client2.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Main Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.fuelpowered.fueldroid/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client2, viewAction);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Main Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.fuelpowered.fueldroid/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client2, viewAction);
-        client2.disconnect();
-    }
 }
