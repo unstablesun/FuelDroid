@@ -51,16 +51,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private IntentFilter mIntentFilter;
     static final String SENDER_ID = "870194926634";
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,16 +116,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button.setOnClickListener(this);
         button = (Button) findViewById(R.id.buttonSendProgress);
         button.setOnClickListener(this);
+        button = (Button) findViewById(R.id.buttonGetEvents);
+        button.setOnClickListener(this);
         button = (Button) findViewById(R.id.buttonPopup1);
         button.setOnClickListener(this);
 
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        //client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -164,6 +149,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.buttonSendProgress:
                 sendProgress();
                 break;
+            case R.id.buttonGetEvents:
+                getEvents();
+                break;
             case R.id.buttonPopup1:
                 launchPopup1();
                 break;
@@ -187,6 +175,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intentBundle);
     }
 
+    private void getEvents()
+    {
+        List<Object> filter = new ArrayList<Object>();
+        filter.add("BronzeFilter");
+        filter.add("bronzeSong1");
+        filter.add("bronzeSong2");
+
+        fuelignite.instance().getEvents(filter);
+
+        Toast.makeText(getApplicationContext(), "Get Events", Toast.LENGTH_SHORT).show();
+    }
+
     private void sendProgress() {
 
         ironCount = 1;
@@ -199,10 +199,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         progress.put("bronze", ironMap);//note: the key is the variable name from the mission rule!
 
         List<Object> tags = new ArrayList<Object>();
-        tags.add("IronFilter");
-        tags.add("SteelFilter");
+        tags.add("BronzeFilter");
+        tags.add("bronzeSong1");
 
         fuelignite.instance().sendProgress(progress, tags);
+
+        Toast.makeText(getApplicationContext(), "Send Progress", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -213,14 +215,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fuelcompete.instance().syncTournamentInfo();
 
 
-        List<Object> filter = new ArrayList<Object>();
-        //filter.add("IronFilter");
-        //filter.add("SteelFilter");
-        filter.add("BronzeFilter");
-        filter.add("bronzeSong1");
-        filter.add("bronzeSong2");
-
-        fuelignite.instance().getEvents(filter);
 
         Toast.makeText(getApplicationContext(), "Sync Events", Toast.LENGTH_SHORT).show();
 
@@ -283,7 +277,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private fuelbroadcastreceiver mMessageReceiver = new fuelbroadcastreceiver() {
+
+    private void displayLeaderBoardEvent(Map<String, Object> event) {
+
+        TextView textElement;
+
+        Object _key = "id";
+        String id = (String) event.get(_key);
+
+        Map<String, Object> metaData = (Map<String, Object>) event.get("metadata");
+        _key = "name";
+        String eventName = (String) metaData.get(_key);
+        textElement = (TextView) findViewById(R.id.textField1);
+        textElement.setText("name = " + eventName + " : id = " + id);
+
+        _key = "imageUrl";
+        String imageUrl = (String) metaData.get(_key);
+        textElement = (TextView) findViewById(R.id.textField2);
+        textElement.setText("url = " + imageUrl + " : id = " + id);
+
+    }
+
+
+
+        private fuelbroadcastreceiver mMessageReceiver = new fuelbroadcastreceiver() {
 
         final Handler handler = new Handler();
 
@@ -365,6 +382,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_COMPETE_TOURNAMENT_INFO.toString())) {
                 Toast.makeText(getApplicationContext(), "Tournament Info", Toast.LENGTH_SHORT).show();
             } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_EVENTS.toString())) {
+                //IGNITE EVENTS
                 Toast.makeText(getApplicationContext(), "Broadcast Events", Toast.LENGTH_SHORT).show();
                 // iterate the list and gather the events.
                 List<Map<String, Object>> events = (List<Map<String, Object>>) data.get("events");
@@ -373,7 +391,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     String activityID = (String) event.get("id");
                     switch ((int) event.get("type")) {
                         case 0:
+
+                            displayLeaderBoardEvent(event);
+
                             fuelignite.instance().getLeaderBoard(activityID);
+
                             break;
                         case 1:
                             fuelignite.instance().getMission(activityID);

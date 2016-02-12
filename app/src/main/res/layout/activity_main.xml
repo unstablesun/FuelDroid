@@ -125,13 +125,24 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Get Events"
+        android:id="@+id/buttonGetEvents"
+        android:layout_below="@+id/buttonLaunch"
+        android:layout_toRightOf="@+id/buttonLaunch"
+        android:layout_above="@+id/textField1"
+        android:layout_alignRight="@+id/buttonSendProgress"
+        android:layout_alignEnd="@+id/buttonSendProgress"
+        android:theme="@style/Widget.AppCompat.Button"
+        android:background="#fff265" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Popup 1"
         android:id="@+id/buttonPopup1"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/buttonSync"
-        android:layout_alignEnd="@+id/buttonSync"
         android:theme="@style/Widget.AppCompat.Button"
         android:background="#d373df" />
 
