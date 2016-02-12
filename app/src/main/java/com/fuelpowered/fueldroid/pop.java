@@ -1,13 +1,10 @@
 package com.fuelpowered.fueldroid;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 /**
  * Created by davehards on 16-02-11.
@@ -32,6 +29,16 @@ public class pop extends Activity {
         int height = dm.heightPixels;
 
         getWindow().setLayout((int)(width * 0.8), (int)(height * 0.8));
+
+        Intent intentExtras = getIntent();
+
+        Bundle bundle = intentExtras.getExtras();
+
+        String title = bundle.getString("title");
+
+
+
+
      }
 
 

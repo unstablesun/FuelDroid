@@ -194,12 +194,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Map<String, Object> ironMap = new HashMap<String, Object>();
         ironMap.put("value", ironCount);
 
-        Map<String, Object> steelMap = new HashMap<String, Object>();
-        steelMap.put("value", ironCount);
 
         Map<String, Object> progress = new HashMap<String, Object>();
-        progress.put("iron", ironMap);//note: the key is the variable name from the mission rule!
-        progress.put("steel", steelMap);//note: the key is the variable name from the mission rule!
+        progress.put("bronze", ironMap);//note: the key is the variable name from the mission rule!
 
         List<Object> tags = new ArrayList<Object>();
         tags.add("IronFilter");
@@ -217,8 +214,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         List<Object> filter = new ArrayList<Object>();
-        filter.add("IronFilter");
-        filter.add("SteelFilter");
+        //filter.add("IronFilter");
+        //filter.add("SteelFilter");
+        filter.add("BronzeFilter");
+        filter.add("bronzeSong1");
+        filter.add("bronzeSong2");
 
         fuelignite.instance().getEvents(filter);
 
@@ -386,12 +386,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_LEADERBOARD.toString())) {
                 Map<String, Object> leaderBoard = (Map<String, Object>) data.get("leaderBoard");
-                Log.i("leaderBoard", leaderBoard.toString());
+                if(leaderBoard != null) {
+                    Log.i("leaderBoard", leaderBoard.toString());
+                }
                 Toast.makeText(getApplicationContext(), "LeaderBoard", Toast.LENGTH_SHORT).show();
 
             } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_MISSION.toString())) {
                 Map<String, Object> mission = (Map<String, Object>) data.get("mission");
-                Log.i("broadcast mission", mission.toString());
+                if(mission != null) {
+                    Log.i("broadcast mission", mission.toString());
+                }
                 //Toast.makeText(getApplicationContext(), mission.toString(), Toast.LENGTH_LONG).show();
 
                 displayMissionEvents(mission);
