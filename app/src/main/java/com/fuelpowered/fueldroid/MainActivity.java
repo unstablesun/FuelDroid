@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Button button;
 
-    int ironCount = 0;
+    int noteCount = 0;
     int steelCount = 0;
 
     private IntentFilter mIntentFilter;
@@ -94,7 +94,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //fuel.useSandbox();
         //Math Attack
-        fuel.setup("56b3ce2550c68b7d57000ebc", "b0f94600-8c70-ffe5-f4f2-9e0103945ba7", true, true, true);
+        //currently using GG
+        //fuel.setup("56b3ce2550c68b7d57000ebc", "b0f94600-8c70-ffe5-f4f2-9e0103945ba7", true, true, true);
+        fuel.setup("56ba6ecc50c68b7bdc006edb", "7f273beb-64dd-7d21-3cf9-c3541a576c8d", true, true, true);
 
         //Tarek Test data
         //fuel.setup("5658726350c68b5b240069b8", "a8933de2-3258-2ff0-5041-05bf65a4b54e", true, true, true);
@@ -178,9 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void getEvents()
     {
         List<Object> filter = new ArrayList<Object>();
-        filter.add("BronzeFilter");
-        filter.add("bronzeSong1");
-        filter.add("bronzeSong2");
+        filter.add("GAME_UPDATE");
 
         fuelignite.instance().getEvents(filter);
 
@@ -189,18 +189,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void sendProgress() {
 
-        ironCount = 1;
+        noteCount += 1;
 
-        Map<String, Object> ironMap = new HashMap<String, Object>();
-        ironMap.put("value", ironCount);
-
+        Map<String, Object> noteMap = new HashMap<String, Object>();
+        noteMap.put("value", noteCount);
 
         Map<String, Object> progress = new HashMap<String, Object>();
-        progress.put("bronze", ironMap);//note: the key is the variable name from the mission rule!
+        progress.put("COMBO_LEVEL", noteMap);//note: the key is the variable name from the mission rule!
 
         List<Object> tags = new ArrayList<Object>();
-        tags.add("BronzeFilter");
-        tags.add("bronzeSong1");
+        tags.add("GAME_UPDATE");
 
         fuelignite.instance().sendProgress(progress, tags);
 
