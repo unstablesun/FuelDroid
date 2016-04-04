@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void getEvents()
     {
         List<Object> filter = new ArrayList<Object>();
-        filter.add("GAME_UPDATE");
+        //filter.add("GAME_UPDATE");
 
         fuelignite.instance().getEvents(filter);
 
@@ -195,10 +195,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         noteMap.put("value", noteCount);
 
         Map<String, Object> progress = new HashMap<String, Object>();
-        progress.put("COMBO_LEVEL", noteMap);//note: the key is the variable name from the mission rule!
+        progress.put("ComboLevel", noteMap);//note: the key is the variable name from the mission rule!
 
         List<Object> tags = new ArrayList<Object>();
-        tags.add("GAME_UPDATE");
+        tags.add("SolarSystem01");
+        tags.add("Planet01");
 
         fuelignite.instance().sendProgress(progress, tags);
 
