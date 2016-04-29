@@ -8,6 +8,9 @@ import android.util.DisplayMetrics;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * Created by davehards on 16-02-11.
@@ -35,34 +38,42 @@ public class pop extends Activity {
 
         Intent intentExtras = getIntent();
 
-        Bundle bundle = intentExtras.getExtras();
 
-        String title = bundle.getString("title");
+        HashMap<String, Object> hMap = (HashMap<String, Object>) intentExtras.getSerializableExtra("hashMap");
+
+
+        Map<String, Object> metaData = (Map<String, Object>) hMap.get("metadata");
+        String _key = "name";
+        String eventName = (String) metaData.get(_key);
+
+        boolean achieved = (boolean)hMap.get("achieved");
+        String eventId = (String)hMap.get("eventId");
+        int score = (int)hMap.get("score");
+        boolean authorized = (boolean)hMap.get("authorized");
+        boolean joined = (boolean)hMap.get("joined");
+        int startTime = (int)hMap.get("startTime");
+        int endTime = (int)hMap.get("endTime");
+        String state = (String)hMap.get("state");
+
 
 
         ListView listView ;
         listView = (ListView) findViewById(R.id.listViewData);
 
-        String[] values = new String[] { "Android List View",
-                "Adapter implementation",
-                "Simple List View In Android",
-                "Create List View Android",
-                "Android Example",
-                "List View Source Code",
-                "List View Array Adapter ",
-                "List View Array Adapter",
-                "List View Array Adapter",
-                "List View Array Adapter",
-                "List View Array Adapter",
-                "List View Array Adapter",
-                "List View Array Adapter",
-                "List View Array Adapter",
-                "List View Array Adapter",
-                "List View Array Adapter",
-                "List View Array Adapter",
-                "List View Array Adapter",
-                "Android Example List View"
-        };
+        String[] values = new String[9];
+
+        int index = 0;
+
+        values[index++] = "eventName = " + eventName;
+
+        values[index++] = "achieved = " + achieved;
+        values[index++] = "eventId = " + eventId;
+        values[index++] = "score = " + score;
+        values[index++] = "authorized = " + authorized;
+        values[index++] = "joined = " + joined;
+        values[index++] = "startTime = " + startTime;
+        values[index++] = "endTime = " + endTime;
+        values[index++] = "state = " + state;
 
 
 

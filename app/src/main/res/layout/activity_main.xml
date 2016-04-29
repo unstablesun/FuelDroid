@@ -42,72 +42,6 @@
         android:layout_alignStart="@+id/buttonLaunch"
         android:background="#b2f8b8" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textField1"
-        android:layout_below="@+id/buttonSync"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:text="field 1" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textField2"
-        android:layout_below="@+id/textField1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/textField1"
-        android:layout_alignEnd="@+id/textField1"
-        android:text="field2" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textField3"
-        android:layout_below="@+id/textField2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/textField2"
-        android:layout_alignEnd="@+id/textField2"
-        android:text="field3" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textField4"
-        android:layout_below="@+id/textField3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/textField3"
-        android:layout_alignEnd="@+id/textField3"
-        android:text="field4" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textField5"
-        android:layout_below="@+id/textField4"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/textField4"
-        android:layout_alignEnd="@+id/textField4"
-        android:text="field5" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textField6"
-        android:layout_below="@+id/textField5"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/textField5"
-        android:layout_alignEnd="@+id/textField5"
-        android:text="field6" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -129,21 +63,108 @@
         android:id="@+id/buttonGetEvents"
         android:layout_below="@+id/buttonLaunch"
         android:layout_toRightOf="@+id/buttonLaunch"
-        android:layout_above="@+id/textField1"
         android:layout_alignRight="@+id/buttonSendProgress"
         android:layout_alignEnd="@+id/buttonSendProgress"
         android:theme="@style/Widget.AppCompat.Button"
-        android:background="#fff265" />
+        android:background="#fff265"
+        android:layout_above="@+id/buttonEntry1" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Popup 1"
         android:id="@+id/buttonPopup1"
+        android:theme="@style/Widget.AppCompat.Button"
+        android:background="#d373df"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Entry 1"
+        android:id="@+id/buttonEntry1"
+        android:textSize="12dp"
+        android:layout_below="@+id/buttonSync"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:theme="@style/Widget.AppCompat.Button"
-        android:background="#d373df" />
+        android:background="#0255b7"
+        android:textColor="#ffffff"
+        style="@android:style/Widget.DeviceDefault.Button.Inset"
+        android:allowUndo="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Entry 2"
+        android:id="@+id/buttonEntry2"
+        android:textSize="12dp"
+        android:background="#0255b7"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/space3"
+        android:layout_alignRight="@+id/space"
+        android:layout_alignEnd="@+id/space"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Entry 3"
+        android:id="@+id/buttonEntry3"
+        android:textSize="12dp"
+        android:background="#0255b7"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/space"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Entry 4"
+        android:id="@+id/buttonEntry4"
+        android:textSize="12dp"
+        android:background="#0255b7"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/space2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="20px"
+        android:layout_alignRight="@+id/buttonEntry4"
+        android:layout_alignEnd="@+id/buttonEntry4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/space"
+        android:layout_below="@+id/buttonEntry2" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="20px"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/buttonEntry4"
+        android:layout_alignEnd="@+id/buttonEntry4"
+        android:layout_below="@+id/buttonEntry3"
+        android:id="@+id/space2" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="20px"
+        android:layout_alignRight="@+id/buttonEntry1"
+        android:layout_alignEnd="@+id/buttonEntry1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/buttonEntry1"
+        android:id="@+id/space3" />
 
 </RelativeLayout>

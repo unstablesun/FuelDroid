@@ -1,22 +1,15 @@
 package com.fuelpowered.fueldroid;
 
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
@@ -24,22 +17,16 @@ import com.fuelpowered.lib.fuelsdk.fuel;
 import com.fuelpowered.lib.fuelsdk.fuelbroadcastreceiver;
 import com.fuelpowered.lib.fuelsdk.fuelcompete;
 import com.fuelpowered.lib.fuelsdk.fuelcompeteui;
-import com.fuelpowered.lib.fuelsdk.fuelnotificationtype;
 import com.fuelpowered.lib.fuelsdk.fuelorientationtype;
 import com.fuelpowered.lib.fuelsdk.fuelbroadcasttype;
 
 import com.fuelpowered.lib.fuelsdk.fueldynamics;
 import com.fuelpowered.lib.fuelsdk.fuelignite;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Arrays;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -51,6 +38,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private IntentFilter mIntentFilter;
     static final String SENDER_ID = "870194926634";
+
+
+    private List<Map<String, Object>> IgniteEvents;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +85,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //fuel.useSandbox();
         //Math Attack
-        //currently using GG
         //fuel.setup("56b3ce2550c68b7d57000ebc", "b0f94600-8c70-ffe5-f4f2-9e0103945ba7", true, true, true);
-        fuel.setup("56ba6ecc50c68b7bdc006edb", "7f273beb-64dd-7d21-3cf9-c3541a576c8d", true, true, true);
+
+        //Groove Galaxy
+        //fuel.setup("56ba6ecc50c68b7bdc006edb", "7f273beb-64dd-7d21-3cf9-c3541a576c8d", true, true, true);
+
+        //Fuel Groove Galaxy
+        fuel.setup("56bb78d38c48eb7a77000008", "b4e612cf-3a3c-1fe6-1125-f082047ed3d0", true, true, true);
 
         //Tarek Test data
         //fuel.setup("5658726350c68b5b240069b8", "a8933de2-3258-2ff0-5041-05bf65a4b54e", true, true, true);
@@ -116,11 +111,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button.setOnClickListener(this);
         button = (Button) findViewById(R.id.buttonSync);
         button.setOnClickListener(this);
-        button = (Button) findViewById(R.id.buttonSendProgress);
+        button = (Button) findViewById(R.id.buttonEntry1);
         button.setOnClickListener(this);
         button = (Button) findViewById(R.id.buttonGetEvents);
         button.setOnClickListener(this);
+        button = (Button) findViewById(R.id.buttonSendProgress);
+        button.setOnClickListener(this);
         button = (Button) findViewById(R.id.buttonPopup1);
+        button.setOnClickListener(this);
+        button = (Button) findViewById(R.id.buttonEntry1);
         button.setOnClickListener(this);
 
     }
@@ -157,25 +156,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.buttonPopup1:
                 launchPopup1();
                 break;
+            case R.id.buttonEntry1:
+                launchPopupWithData(IgniteEvents.get(0));
+                break;
+            case R.id.buttonEntry2:
+                launchPopupWithData(IgniteEvents.get(1));
+                break;
+            case R.id.buttonEntry3:
+                launchPopupWithData(IgniteEvents.get(2));
+                break;
+            case R.id.buttonEntry4:
+                launchPopupWithData(IgniteEvents.get(3));
+                break;
 
             default:
                 break;
         }
     }
 
-    private void launchPopup1() {
-
-        //pass in bundle
-        Intent intentBundle = new Intent(MainActivity.this, pop.class);
-
-        Bundle bundle = new Bundle();
-        bundle.putString("title", "Mission Rule");
-        bundle.putInt("amount", 1000);
-
-        intentBundle.putExtras(bundle);
-
-        startActivity(intentBundle);
-    }
 
     private void getEvents()
     {
@@ -221,6 +219,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void displayMissionEvents(Map<String, Object> mission) {
 
+        /*
         TextView textElement;
 
         Object _key = "id";
@@ -263,23 +262,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             textElement.setText("achieved = " + bvalue);
 
             //variable
-            key = "variable";
-            value = (String) rule.get(key);
-            textElement = (TextView) findViewById(R.id.textField6);
-            textElement.setText("variable = " + value);
+            //key = "variable";
+            //value = (String) rule.get(key);
+            //textElement = (TextView) findViewById(R.id.textField6);
+            //textElement.setText("variable = " + value);
 
             //kind
             //metadata
 
             //break;//just print the first one
         }
+        */
     }
 
 
 
-    private void displayLeaderBoardEvent(Map<String, Object> event) {
+    private void displayLeaderBoardEvent(Map<String, Object> event, int lineIndex) {
 
-        TextView textElement;
+        Button buttonElement = (Button) findViewById(R.id.buttonEntry1);
 
         Object _key = "id";
         String id = (String) event.get(_key);
@@ -287,17 +287,68 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Map<String, Object> metaData = (Map<String, Object>) event.get("metadata");
         _key = "name";
         String eventName = (String) metaData.get(_key);
-        textElement = (TextView) findViewById(R.id.textField1);
-        textElement.setText("name = " + eventName + " : id = " + id);
 
-        _key = "imageUrl";
-        String imageUrl = (String) metaData.get(_key);
-        textElement = (TextView) findViewById(R.id.textField2);
-        textElement.setText("url = " + imageUrl + " : id = " + id);
+        if(lineIndex == 0) {
+            buttonElement = (Button) findViewById(R.id.buttonEntry1);
+        }
+        else if(lineIndex == 1) {
+            buttonElement = (Button) findViewById(R.id.buttonEntry2);
+        }
+        else if(lineIndex == 2) {
+            buttonElement = (Button) findViewById(R.id.buttonEntry3);
+        }
+        else if(lineIndex == 3) {
+            buttonElement = (Button) findViewById(R.id.buttonEntry4);
+        }
+        else if(lineIndex == 4) {
+            //buttonElement = (Button) findViewById(R.id.buttonEntry5);
+        }
+        else if(lineIndex == 5) {
+            //buttonElement = (Button) findViewById(R.id.buttonEntry6);
+        }
+
+        buttonElement.setText(eventName + " : " + id);
 
     }
 
 
+    private void launchPopup1() {
+
+        //pass in bundle
+        Intent intentContainer = new Intent(MainActivity.this, pop.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("title", "Mission Rule");
+        bundle.putInt("amount", 1000);
+
+
+        intentContainer.putExtras(bundle);
+
+        startActivity(intentContainer);
+    }
+
+
+    private void launchPopupWithData(Map<String, Object> event) {
+
+        Intent intentContainer = new Intent(MainActivity.this, pop.class);
+
+        HashMap<String, Object> hMap = null;
+        if (event != null && event instanceof HashMap<?, ?>) {
+            hMap = (HashMap<String, Object>) event;
+        } else if (event != null) {
+            hMap.putAll(event);
+        }
+
+        intentContainer.putExtra("hashMap", hMap);
+
+        startActivity(intentContainer);
+
+    }
+
+    //private void displayLeaderBoardData(Map<String, Object> data) {
+//
+//
+    //}
 
         private fuelbroadcastreceiver mMessageReceiver = new fuelbroadcastreceiver() {
 
@@ -384,14 +435,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //IGNITE EVENTS
                 Toast.makeText(getApplicationContext(), "Broadcast Events", Toast.LENGTH_SHORT).show();
                 // iterate the list and gather the events.
-                List<Map<String, Object>> events = (List<Map<String, Object>>) data.get("events");
-                Log.i("events", events.toString());
-                for (Map<String, Object> event : events) {
+
+                IgniteEvents = (List<Map<String, Object>>) data.get("events");
+                //List<Map<String, Object>> events = (List<Map<String, Object>>) data.get("events");
+                Log.i("events", IgniteEvents.toString());
+                int lineIndex = 0;
+                for (Map<String, Object> event : IgniteEvents) {
                     String activityID = (String) event.get("id");
                     switch ((int) event.get("type")) {
                         case 0:
 
-                            displayLeaderBoardEvent(event);
+                            displayLeaderBoardEvent(event, lineIndex);
 
                             fuelignite.instance().getLeaderBoard(activityID);
 
@@ -404,6 +458,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             fuelignite.instance().getQuest(activityID);
                             break;
                     }
+                    lineIndex++;
                 }
             } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_LEADERBOARD.toString())) {
                 Map<String, Object> leaderBoard = (Map<String, Object>) data.get("leaderBoard");
