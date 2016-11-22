@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void getEvents()
     {
         List<Object> filter = new ArrayList<Object>();
-        //filter.add("GAME_UPDATE");
+        filter.add("PLANET_UNLOCKED_06");
 
         fuelignite.instance().getEvents(filter);
 
@@ -187,13 +187,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void sendProgress() {
 
-        noteCount += 1;
+        Random randomNumber = new Random();
+        noteCount += randomNumber.nextInt(10);
+
 
         Map<String, Object> noteMap = new HashMap<String, Object>();
         noteMap.put("value", noteCount);
 
         Map<String, Object> progress = new HashMap<String, Object>();
         progress.put("ComboLevel", noteMap);//note: the key is the variable name from the mission rule!
+        progress.put("BonusLevel", noteMap);//note: the key is the variable name from the mission rule!
+        progress.put("NotesPerSecond", noteMap);//note: the key is the variable name from the mission rule!
+        progress.put("ComboLevelMax", noteMap);//note: the key is the variable name from the mission rule!
+        progress.put("BonusLevelMax", noteMap);//note: the key is the variable name from the mission rule!
+        progress.put("NotesPerSecondMax", noteMap);//note: the key is the variable name from the mission rule!
 
         List<Object> tags = new ArrayList<Object>();
         tags.add("SolarSystem01");
